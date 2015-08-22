@@ -9,11 +9,14 @@ public class ControlScript : MonoBehaviour {
 	int direction = 3;
 	float speed = 100.0f;
 	
-	public float hp = 100.0f;
+	public WindScript wind;
 	
-	readonly float mealToHp = 1.0f;   // meal = hp * mealToHp; hp = meal / mealToHp 
-	readonly float hpDropShelter = 0.1f; // per second
-	readonly float hpDropOutside = 0.3f; // per second
+	public float hp = 100.0f;
+	public LayerMask layerVictim;
+	
+	readonly float mealToHp = 0.1f;   // meal = hp * mealToHp; hp = meal / mealToHp 
+	readonly float hpDropShelter = 0.0f; // per second
+	readonly float hpDropOutside = 1.0f; // per second
 	//readonly float mealPerVictim = 10.0f;
 	int maxHp = 100;
 	
@@ -79,7 +82,23 @@ public class ControlScript : MonoBehaviour {
 		GetComponent<SpriteRenderer>().sprite = yetiDirectionSprites[direction];
 		
 		//transform.position = transform.position + Time.deltaTime * speed * (new Vector3(inputH, inputV, 0.0f));
-		GetComponent<Rigidbody2D>().velocity = speed * (new Vector2(inputH, inputV));
+		Vector2 velocity = speed * (new Vector2(inputH, inputV));
+		if ((((wind.speed > 0) && (velocity.x > 0))
+			|| ((wind.speed < 0) && (velocity.x < 0)))
+			&& (Mathf.Abs(wind.speed) >= Mathf.Abs(velocity.x)))
+				velocity.x = 0.0f;
+		else if (Mathf.Abs(velocity.x) > 0)
+			velocity.x += wind.speed;
+		GetComponent<Rigidbody2D>().velocity = velocity;
+	
+		bool grab = Input.GetAxis("Action") >= inputDeadZone;
+		Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, 20, layerVictim);
+		for (int i = 0; i != colliders.Length; ++i)
+		{
+			VictimScript victim = colliders[i].GetComponent<VictimScript>();
+			victim.Grab(grab);
+			if (grab) victim.Kill();
+		}
 		
 		if (shelter == null)
 		{
@@ -95,6 +114,17 @@ public class ControlScript : MonoBehaviour {
 			hp -= Time.deltaTime * hpDropShelter;
 		}
 		
-		if (hp <= 0.0f) ;
+		//if (hp <= 0.0f) ;
+		Vector3 position = GetComponent<Rigidbody2D>().position;
+		Vector2 horizontalLimits = Camera.main.transform.GetComponent<CameraScript>().horizontalLimits;
+		if (position.y < Camera.main.transform.position.y - Camera.main.orthographicSize)
+		    position.y = Camera.main.transform.position.y - Camera.main.orthographicSize;
+		if (position.y > Camera.main.transform.position.y + Camera.main.orthographicSize)
+			position.y = Camera.main.transform.position.y + Camera.main.orthographicSize;
+		if (position.x < horizontalLimits[0])
+			position.x = horizontalLimits[0];
+		if (position.x > horizontalLimits[1])
+			position.x = horizontalLimits[1];
+		GetComponent<Rigidbody2D>().position = position;
 	}
 }

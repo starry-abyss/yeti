@@ -48,14 +48,22 @@ public class MealIndicatorScript : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		hud.transform.position = transform.position + new Vector3(offset.x, offset.y, 0.0f);
+		//Vector3 newPosition = transform.position + new Vector3(offset.x, offset.y, 0.0f);
+		hud.transform.position = new Vector3(Mathf.FloorToInt(offset.x + transform.position.x),
+		                                     Mathf.FloorToInt(offset.y + transform.position.y), 
+		                                     0.0f);
 		if (cave != null)
 		{
-			UpdateValue(Mathf.CeilToInt(cave.meal / 10.0f));
+			UpdateValue(Mathf.CeilToInt(cave.meal / 1.0f));
 		}
 		else if (victim != null)
 		{
-			UpdateValue(Mathf.CeilToInt(victim.meal / 10.0f));
+			UpdateValue(Mathf.CeilToInt(victim.meal / 1.0f));
 		}
+	}
+	
+	void OnDestroy()
+	{
+		Destroy(hud);
 	}
 }

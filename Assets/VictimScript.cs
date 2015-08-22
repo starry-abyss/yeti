@@ -3,7 +3,7 @@ using System.Collections;
 
 public class VictimScript : MonoBehaviour {
 
-	public float meal = 10.0f;
+	public float meal = 1.0f;
 	bool dead = false;
 	
 	public Sprite deadSprite;
@@ -26,6 +26,19 @@ public class VictimScript : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+		if (!dead)
+		{
+			Vector2 horizontalLimits = Camera.main.transform.GetComponent<CameraScript>().horizontalLimits;
+			if ((transform.position.y < Camera.main.transform.position.y - Camera.main.orthographicSize)
+				|| (transform.position.y > Camera.main.transform.position.y + Camera.main.orthographicSize)
+				|| (transform.position.x < horizontalLimits[0]) || (transform.position.x > horizontalLimits[1]))
+			{
+				// yeti loses
+				Destroy(gameObject);
+				return;
+			}
+		}
+		
 		if (meal <= 0.0f)
 		{
 			Destroy(gameObject);
