@@ -32,6 +32,7 @@ public class ControlScript : MonoBehaviour {
 		
 		GetComponent<SpriteRenderer>().sprite = yetiDirectionSprites[direction];
 		
-		transform.position = transform.position + Time.deltaTime * speed * (new Vector3(inputH, inputV, 0.0f));
+		//transform.position = transform.position + Time.deltaTime * speed * (new Vector3(inputH, inputV, 0.0f));
+		GetComponent<Rigidbody2D>().velocity = speed * (new Vector2(inputH, inputV));
 	}
 }
