@@ -8,6 +8,11 @@ public class VictimScript : MonoBehaviour {
 	
 	public Sprite deadSprite;
 	
+	public void Grab(bool grab)
+	{
+		GetComponent<DistanceJoint2D>().enabled = grab;
+	}
+	
 	public void Kill()
 	{
 		dead = true;

@@ -8,7 +8,9 @@ public class CaveScript : MonoBehaviour {
 	
 	}
 	
-	public float meal = 0;
+	//float m_meal;
+	
+	public float meal;
 
 	void OnTriggerEnter2D(Collider2D other)
 	{
@@ -21,7 +23,12 @@ public class CaveScript : MonoBehaviour {
 		else
 		{
 			// convert to meal
-		
+			VictimScript victim = other.gameObject.GetComponent<VictimScript>();
+			if (victim != null)
+			{
+				meal += victim.meal;
+				victim.meal = 0.0f;
+			}
 		}
 	}
 	
@@ -36,6 +43,6 @@ public class CaveScript : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-	
+
 	}
 }
