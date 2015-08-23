@@ -6,7 +6,26 @@ public class VictimScript : MonoBehaviour {
 	public float meal = 1.0f;
 	bool dead = false;
 	
+	float speed = 60.0f;
+	
+	Vector2 currentVelocity = new Vector2(0, 0);
+	
+	public AudioClip killSound;
+	
 	public Sprite deadSprite;
+	
+	public bool IsDead()
+	{
+		return dead;
+	}
+	
+	public void ScareEvent(Vector3 position)
+	{
+		if (dead) return;
+		Vector3 direction3 = transform.position - position;
+		Vector2 direction2 = new Vector2(direction3.x, direction3.y).normalized;
+		currentVelocity = direction2 * speed;
+	}
 	
 	public void Grab(bool grab)
 	{
@@ -15,13 +34,22 @@ public class VictimScript : MonoBehaviour {
 	
 	public void Kill()
 	{
+		if (dead) return;
 		dead = true;
 		GetComponent<SpriteRenderer>().sprite = deadSprite;
+		currentVelocity = new Vector2(0, 0);
+		
+		AudioSource.PlayClipAtPoint(killSound, transform.position);
 	}
 
 	// Use this for initialization
 	void Start () {
 	
+	}
+	
+	void FixedUpdate()
+	{
+		GetComponent<Rigidbody2D>().velocity = currentVelocity;
 	}
 	
 	// Update is called once per frame

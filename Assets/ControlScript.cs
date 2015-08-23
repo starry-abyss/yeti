@@ -7,7 +7,9 @@ public class ControlScript : MonoBehaviour {
 	// 2     0
 	//    3
 	int direction = 3;
-	float speed = 100.0f;
+	float speed = 70.0f;
+	
+	Vector2 currentVelocity;
 	
 	public WindScript wind;
 	
@@ -62,6 +64,23 @@ public class ControlScript : MonoBehaviour {
 		}
 	}
 	
+	void FixedUpdate()
+	{
+		GetComponent<Rigidbody2D>().velocity = currentVelocity;
+		
+		Vector3 position = GetComponent<Rigidbody2D>().position;
+		Vector2 horizontalLimits = Camera.main.transform.GetComponent<CameraScript>().horizontalLimits;
+		if (position.y < Camera.main.transform.position.y - Camera.main.orthographicSize)
+			position.y = Camera.main.transform.position.y - Camera.main.orthographicSize;
+		if (position.y > Camera.main.transform.position.y + Camera.main.orthographicSize)
+			position.y = Camera.main.transform.position.y + Camera.main.orthographicSize;
+		if (position.x < horizontalLimits[0])
+			position.x = horizontalLimits[0];
+		if (position.x > horizontalLimits[1])
+			position.x = horizontalLimits[1];
+		GetComponent<Rigidbody2D>().position = position;
+	}
+	
 	// Update is called once per frame
 	void Update () {
 		float inputV = Input.GetAxis("Vertical");
@@ -82,15 +101,16 @@ public class ControlScript : MonoBehaviour {
 		GetComponent<SpriteRenderer>().sprite = yetiDirectionSprites[direction];
 		
 		//transform.position = transform.position + Time.deltaTime * speed * (new Vector3(inputH, inputV, 0.0f));
-		Vector2 velocity = speed * (new Vector2(inputH, inputV));
+		Vector2 velocity = speed * (new Vector2(inputH, inputV)).normalized;
 		if ((((wind.speed > 0) && (velocity.x > 0))
 			|| ((wind.speed < 0) && (velocity.x < 0)))
 			&& (Mathf.Abs(wind.speed) >= Mathf.Abs(velocity.x)))
 				velocity.x = 0.0f;
 		else if (Mathf.Abs(velocity.x) > 0)
 			velocity.x += wind.speed;
-		GetComponent<Rigidbody2D>().velocity = velocity;
+		currentVelocity = velocity;
 	
+		// grabbing victims
 		bool grab = Input.GetAxis("Action") >= inputDeadZone;
 		Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, 20, layerVictim);
 		for (int i = 0; i != colliders.Length; ++i)
@@ -98,6 +118,14 @@ public class ControlScript : MonoBehaviour {
 			VictimScript victim = colliders[i].GetComponent<VictimScript>();
 			victim.Grab(grab);
 			if (grab) victim.Kill();
+		}
+		
+		// scaring victims by our appearance
+		colliders = Physics2D.OverlapCircleAll(transform.position, 50, layerVictim);
+		for (int i = 0; i != colliders.Length; ++i)
+		{
+			VictimScript victim = colliders[i].GetComponent<VictimScript>();
+			victim.ScareEvent(transform.position);
 		}
 		
 		if (shelter == null)
@@ -115,18 +143,10 @@ public class ControlScript : MonoBehaviour {
 		}
 		
 		// yeti loses
-		if (hp <= 0.0f) Application.LoadLevel(Application.loadedLevel);
-		
-		Vector3 position = GetComponent<Rigidbody2D>().position;
-		Vector2 horizontalLimits = Camera.main.transform.GetComponent<CameraScript>().horizontalLimits;
-		if (position.y < Camera.main.transform.position.y - Camera.main.orthographicSize)
-		    position.y = Camera.main.transform.position.y - Camera.main.orthographicSize;
-		if (position.y > Camera.main.transform.position.y + Camera.main.orthographicSize)
-			position.y = Camera.main.transform.position.y + Camera.main.orthographicSize;
-		if (position.x < horizontalLimits[0])
-			position.x = horizontalLimits[0];
-		if (position.x > horizontalLimits[1])
-			position.x = horizontalLimits[1];
-		GetComponent<Rigidbody2D>().position = position;
+		if (hp <= 0.0f) 
+		{
+			;
+			Application.LoadLevel(Application.loadedLevel);
+		}
 	}
 }
