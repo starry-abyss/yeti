@@ -114,7 +114,9 @@ public class ControlScript : MonoBehaviour {
 			hp -= Time.deltaTime * hpDropShelter;
 		}
 		
-		//if (hp <= 0.0f) ;
+		// yeti loses
+		if (hp <= 0.0f) Application.LoadLevel(Application.loadedLevel);
+		
 		Vector3 position = GetComponent<Rigidbody2D>().position;
 		Vector2 horizontalLimits = Camera.main.transform.GetComponent<CameraScript>().horizontalLimits;
 		if (position.y < Camera.main.transform.position.y - Camera.main.orthographicSize)

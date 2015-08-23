@@ -34,7 +34,9 @@ public class VictimScript : MonoBehaviour {
 				|| (transform.position.x < horizontalLimits[0]) || (transform.position.x > horizontalLimits[1]))
 			{
 				// yeti loses
-				Destroy(gameObject);
+				//Destroy(gameObject);
+				
+				Application.LoadLevel(Application.loadedLevel);
 				return;
 			}
 		}
