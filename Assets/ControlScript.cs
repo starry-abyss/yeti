@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 
 public class ControlScript : MonoBehaviour {
@@ -120,12 +121,21 @@ public class ControlScript : MonoBehaviour {
 			if (grab) victim.Kill();
 		}
 		
-		// scaring victims by our appearance
-		colliders = Physics2D.OverlapCircleAll(transform.position, 50, layerVictim);
+		// scaring victims by our appearance and sound
+		colliders = Physics2D.OverlapCircleAll(transform.position, 100, layerVictim);
 		for (int i = 0; i != colliders.Length; ++i)
 		{
-			VictimScript victim = colliders[i].GetComponent<VictimScript>();
-			victim.ScareEvent(transform.position);
+			float directionSound = colliders[i].transform.position.x - transform.position.x;
+			float directionWind = wind.speed;
+			
+			// victim has seen us
+			if ((Vector2.Distance(transform.position, colliders[i].transform.position) <= 50.0f)
+			// victim has heard us
+			    || ((Mathf.Abs(velocity.magnitude) > 10.0f) && (((directionSound > 0.0f) && (directionWind > 0.0f)) || ((directionSound < 0.0f) && (directionWind < 0.0f)))))
+			{
+				VictimScript victim = colliders[i].GetComponent<VictimScript>();
+				victim.ScareEvent(transform.position);
+			}
 		}
 		
 		if (shelter == null)
@@ -145,8 +155,11 @@ public class ControlScript : MonoBehaviour {
 		// yeti loses
 		if (hp <= 0.0f) 
 		{
-			;
-			Application.LoadLevel(Application.loadedLevel);
+			GameObject dialog = GameObject.Find("Dialog");
+			dialog.transform.Find("Text").GetComponent<Text>().text = "I'm hungry!!!\n[Watch over the pink health bar at the bottom]";
+			dialog.GetComponent<DialogScript>().restartLevelAfterClosing = true;
+			dialog.GetComponent<DialogScript>().Show();
+			//Application.LoadLevel(Application.loadedLevel);
 		}
 	}
 }

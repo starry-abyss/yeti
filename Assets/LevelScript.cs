@@ -1,11 +1,18 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 
 public class LevelScript : MonoBehaviour {
 
+	public WindScript wind;
+
 	// Use this for initialization
 	void Start () {
-		
+		VictimScript[] victims = Object.FindObjectsOfType<VictimScript>();
+		for (int i = 0; i < victims.Length; ++i)
+		{
+			victims[i].wind = wind;
+		}
 	}
 	
 	// Update is called once per frame
@@ -30,7 +37,18 @@ public class LevelScript : MonoBehaviour {
 			if (Application.loadedLevel == Application.levelCount - 1)
 			{
 				// this is last level
-				Debug.Log("last level");
+				GameObject dialog = GameObject.Find("Dialog");
+				if (dialog.GetComponent<DialogScript>().IsHidden() && ((Input.GetAxisRaw("Action") < 0.1f)))
+				{
+					Debug.Log("last level");
+					
+					dialog.transform.Find("Text").GetComponent<Text>().text = "[The End]\n\nLudum Dare #33\nmade in 48 hrs by Scorched (IgorsGames)";
+					dialog.GetComponent<DialogScript>().Show();
+				}
+				else
+				{
+					this.enabled = true;
+				}
 			}
 			else
 			{

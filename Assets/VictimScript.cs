@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 
 public class VictimScript : MonoBehaviour {
@@ -11,8 +12,10 @@ public class VictimScript : MonoBehaviour {
 	Vector2 currentVelocity = new Vector2(0, 0);
 	
 	public AudioClip killSound;
+	//public LayerMask layerVictim;
 	
 	public Sprite deadSprite;
+	public WindScript wind;
 	
 	public bool IsDead()
 	{
@@ -22,6 +25,12 @@ public class VictimScript : MonoBehaviour {
 	public void ScareEvent(Vector3 position)
 	{
 		if (dead) return;
+		PatrolScript patrolScript = GetComponent<PatrolScript>();
+		if (patrolScript != null)
+		{
+			patrolScript.enabled = false;
+		}
+		
 		Vector3 direction3 = transform.position - position;
 		Vector2 direction2 = new Vector2(direction3.x, direction3.y).normalized;
 		currentVelocity = direction2 * speed;
@@ -40,6 +49,25 @@ public class VictimScript : MonoBehaviour {
 		currentVelocity = new Vector2(0, 0);
 		
 		AudioSource.PlayClipAtPoint(killSound, transform.position);
+		
+		Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, 100, 1 << gameObject.layer);
+		for (int i = 0; i != colliders.Length; ++i)
+		{
+			if (colliders[i].gameObject != this)
+			{
+				float directionSound = colliders[i].transform.position.x - transform.position.x;
+				float directionWind = wind.speed;
+				
+				// victim has seen us
+				if (/*(Vector2.Distance(transform.position, colliders[i].transform.position) <= 50.0f)
+				    // victim has heard us
+				    ||*/ (((directionSound > 0.0f) && (directionWind > 0.0f)) || ((directionSound < 0.0f) && (directionWind < 0.0f))))
+				{
+					VictimScript victim = colliders[i].GetComponent<VictimScript>();
+					victim.ScareEvent(transform.position);
+				}
+			}
+		}
 	}
 
 	// Use this for initialization
@@ -64,8 +92,25 @@ public class VictimScript : MonoBehaviour {
 				// yeti loses
 				//Destroy(gameObject);
 				
-				Application.LoadLevel(Application.loadedLevel);
+				GameObject dialog = GameObject.Find("Dialog");
+				dialog.transform.Find("Text").GetComponent<Text>().text = "It ran away!\n[Don't let anybody escape]";
+				dialog.GetComponent<DialogScript>().restartLevelAfterClosing = true;
+				dialog.GetComponent<DialogScript>().Show();
+				
+				//Application.LoadLevel(Application.loadedLevel);
 				return;
+			}
+		}
+		else
+		{
+			Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, 50, 1 << gameObject.layer);
+			for (int i = 0; i != colliders.Length; ++i)
+			{
+				if (colliders[i].gameObject != this)
+				{
+					VictimScript victim = colliders[i].GetComponent<VictimScript>();
+					victim.ScareEvent(transform.position);
+				}
 			}
 		}
 		

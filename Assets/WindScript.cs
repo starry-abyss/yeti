@@ -24,6 +24,7 @@ public class WindScript : MonoBehaviour {
 		}
 		
 		startTime = Time.time;
+		//GetComponent<MeshRenderer>().material.mainTextureOffset = new Vector2(0, 0);
 	}
 	
 	// Update is called once per frame
