@@ -6,9 +6,14 @@ public class DialogScript : MonoBehaviour {
 
 	bool hidden = false;
 	public bool restartLevelAfterClosing = false;
+	
+	AudioSource musicHunt;
+	AudioSource musicConcentrate;
 
 	// Use this for initialization
 	void Start () {
+		musicHunt = GameObject.Find("music_hunt").GetComponent<AudioSource>();
+		musicConcentrate = GameObject.Find("music_concentrate").GetComponent<AudioSource>();
 		Show();
 	}
 	
@@ -20,6 +25,9 @@ public class DialogScript : MonoBehaviour {
 	public void Hide()
 	{
 		hidden = true;
+		
+		musicHunt.enabled = true;
+		musicConcentrate.enabled = false;
 		Time.timeScale = 1.0f;
 		
 		//Debug.Log("Hide");
@@ -32,6 +40,9 @@ public class DialogScript : MonoBehaviour {
 	public void Show()
 	{
 		hidden = false;
+		
+		musicHunt.enabled = false;
+		musicConcentrate.enabled = true;
 		
 		transform.SetAsLastSibling();
 		GetComponent<Image>().enabled = true;

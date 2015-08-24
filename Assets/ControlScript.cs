@@ -156,7 +156,7 @@ public class ControlScript : MonoBehaviour {
 		if (hp <= 0.0f) 
 		{
 			GameObject dialog = GameObject.Find("Dialog");
-			dialog.transform.Find("Text").GetComponent<Text>().text = "I'm hungry!!!\n[Watch over the pink health bar at the bottom]";
+			dialog.transform.Find("Text").GetComponent<Text>().text = "I'm hungry!!!\n\n[Watch over the pink health bar at the bottom]";
 			dialog.GetComponent<DialogScript>().restartLevelAfterClosing = true;
 			dialog.GetComponent<DialogScript>().Show();
 			//Application.LoadLevel(Application.loadedLevel);

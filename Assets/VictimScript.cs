@@ -93,7 +93,7 @@ public class VictimScript : MonoBehaviour {
 				//Destroy(gameObject);
 				
 				GameObject dialog = GameObject.Find("Dialog");
-				dialog.transform.Find("Text").GetComponent<Text>().text = "It ran away!\n[Don't let anybody escape]";
+				dialog.transform.Find("Text").GetComponent<Text>().text = "It ran away!\n\n[Don't let anybody escape]";
 				dialog.GetComponent<DialogScript>().restartLevelAfterClosing = true;
 				dialog.GetComponent<DialogScript>().Show();
 				
