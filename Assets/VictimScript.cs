@@ -50,21 +50,24 @@ public class VictimScript : MonoBehaviour {
 		
 		AudioSource.PlayClipAtPoint(killSound, transform.position);
 		
-		Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, 100, 1 << gameObject.layer);
-		for (int i = 0; i != colliders.Length; ++i)
+		if (wind.enabled)
 		{
-			if (colliders[i].gameObject != this)
+			Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, 100, 1 << gameObject.layer);
+			for (int i = 0; i != colliders.Length; ++i)
 			{
-				float directionSound = colliders[i].transform.position.x - transform.position.x;
-				float directionWind = wind.speed;
-				
-				// victim has seen us
-				if (/*(Vector2.Distance(transform.position, colliders[i].transform.position) <= 50.0f)
-				    // victim has heard us
-				    ||*/ (((directionSound > 0.0f) && (directionWind > 0.0f)) || ((directionSound < 0.0f) && (directionWind < 0.0f))))
+				if (colliders[i].gameObject != this)
 				{
-					VictimScript victim = colliders[i].GetComponent<VictimScript>();
-					victim.ScareEvent(transform.position);
+					float directionSound = colliders[i].transform.position.x - transform.position.x;
+					float directionWind = wind.speed;
+					
+					// victim has seen us
+					if (/*(Vector2.Distance(transform.position, colliders[i].transform.position) <= 50.0f)
+					    // victim has heard us
+					    ||*/ (((directionSound > 0.0f) && (directionWind > 0.0f)) || ((directionSound < 0.0f) && (directionWind < 0.0f))))
+					{
+						VictimScript victim = colliders[i].GetComponent<VictimScript>();
+						victim.ScareEvent(transform.position);
+					}
 				}
 			}
 		}

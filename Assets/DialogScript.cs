@@ -59,6 +59,12 @@ public class DialogScript : MonoBehaviour {
 		position.z = -9;
 		GetComponent<RectTransform>().position = position;
 		
+		float offset = 15.0f;
+		Vector2 size = GetComponent<RectTransform>().sizeDelta;
+		size.x = Camera.main.orthographicSize * Camera.main.aspect * 2 - offset * 2;
+		size.y = Camera.main.orthographicSize * 2 - offset * 2;
+		GetComponent<RectTransform>().sizeDelta = size;
+		
 		if (!hidden && (Input.GetAxisRaw("Action") >= 0.1f))
 		{
 			if (restartLevelAfterClosing)

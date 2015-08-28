@@ -44,7 +44,7 @@ public class LevelScript : MonoBehaviour {
 				{
 					Debug.Log("last level");
 					
-					dialog.transform.Find("Text").GetComponent<Text>().text = "[The End]\n\nLudum Dare #33\nmade in 48 hrs by Scorched (IgorsGames)";
+					dialog.transform.Find("Text").GetComponent<Text>().text = "[The End]\n\nThis is the extended post-compo version of Ludum Dare #33 entry that was originally made in 48 hrs by Scorched (@IgorsGames)";
 					dialog.GetComponent<DialogScript>().Show();
 				}
 				else

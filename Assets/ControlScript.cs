@@ -103,12 +103,15 @@ public class ControlScript : MonoBehaviour {
 		
 		//transform.position = transform.position + Time.deltaTime * speed * (new Vector3(inputH, inputV, 0.0f));
 		Vector2 velocity = speed * (new Vector2(inputH, inputV)).normalized;
-		if ((((wind.speed > 0) && (velocity.x > 0))
-			|| ((wind.speed < 0) && (velocity.x < 0)))
-			&& (Mathf.Abs(wind.speed) >= Mathf.Abs(velocity.x)))
-				velocity.x = 0.0f;
-		else if (Mathf.Abs(velocity.x) > 0)
-			velocity.x += wind.speed;
+		if (wind.enabled)
+		{
+			if ((((wind.speed > 0) && (velocity.x > 0))
+				|| ((wind.speed < 0) && (velocity.x < 0)))
+				&& (Mathf.Abs(wind.speed) >= Mathf.Abs(velocity.x)))
+					velocity.x = 0.0f;
+			else if (Mathf.Abs(velocity.x) > 0)
+				velocity.x += wind.speed;
+		}
 		currentVelocity = velocity;
 	
 		// grabbing victims
@@ -131,7 +134,7 @@ public class ControlScript : MonoBehaviour {
 			// victim has seen us
 			if ((Vector2.Distance(transform.position, colliders[i].transform.position) <= 50.0f)
 			// victim has heard us
-			    || ((Mathf.Abs(velocity.magnitude) > 10.0f) && (((directionSound > 0.0f) && (directionWind > 0.0f)) || ((directionSound < 0.0f) && (directionWind < 0.0f)))))
+			    || (wind.enabled && ((Mathf.Abs(velocity.magnitude) > 10.0f) && (((directionSound > 0.0f) && (directionWind > 0.0f)) || ((directionSound < 0.0f) && (directionWind < 0.0f))))))
 			{
 				VictimScript victim = colliders[i].GetComponent<VictimScript>();
 				victim.ScareEvent(transform.position);
