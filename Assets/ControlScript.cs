@@ -69,12 +69,14 @@ public class ControlScript : MonoBehaviour {
 	{
 		GetComponent<Rigidbody2D>().velocity = currentVelocity;
 		
+		float yetiHeight = GetComponent<SpriteRenderer>().sprite.rect.height;
+		
 		Vector3 position = GetComponent<Rigidbody2D>().position;
 		Vector2 horizontalLimits = Camera.main.transform.GetComponent<CameraScript>().horizontalLimits;
 		if (position.y < Camera.main.transform.position.y - Camera.main.orthographicSize)
 			position.y = Camera.main.transform.position.y - Camera.main.orthographicSize;
-		if (position.y > Camera.main.transform.position.y + Camera.main.orthographicSize)
-			position.y = Camera.main.transform.position.y + Camera.main.orthographicSize;
+		if (position.y > Camera.main.transform.position.y + Camera.main.orthographicSize - yetiHeight / 2)
+			position.y = Camera.main.transform.position.y + Camera.main.orthographicSize - yetiHeight / 2;
 		if (position.x < horizontalLimits[0])
 			position.x = horizontalLimits[0];
 		if (position.x > horizontalLimits[1])

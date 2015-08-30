@@ -37,9 +37,11 @@ public class WindScript : MonoBehaviour {
 		else
 			speed = -baseSpeed;
 	
-		Vector2 offset = (Time.time % 100.0f) * 
-			new Vector2((Mathf.Abs(baseSpeed) < Mathf.Epsilon) ? 0.0f : -speed / baseSpeed, 
-			Mathf.Abs(Mathf.Sin((Time.time % (2 * Mathf.PI)) / 100.0f)) * 1.0f);
+		Vector2 offset = 
+			new Vector2((phase % 100.0f) * ((Mathf.Abs(baseSpeed) < Mathf.Epsilon) ? 
+			Mathf.Sin((phase % (2 * Mathf.PI))) * 0.002f : -speed / baseSpeed), 
+			//Mathf.Abs(Mathf.Sin((Time.time % (2 * Mathf.PI)) /*/ 100.0f*/)) * 1.0f);
+			((phase / 5.0f) % 1.0f));
 		GetComponent<MeshRenderer>().material.mainTextureOffset = offset;
 		
 		for (int i = 0; i < treeRenderers.Length; ++i)
