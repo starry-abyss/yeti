@@ -6,15 +6,19 @@ public class DialogScript : MonoBehaviour {
 
 	bool hidden = false;
 	public bool restartLevelAfterClosing = false;
-	
-	AudioSource musicHunt;
+    public bool showOnLevelStart = true;
+
+    AudioSource musicHunt;
 	AudioSource musicConcentrate;
 
 	// Use this for initialization
 	void Start () {
 		musicHunt = GameObject.Find("music_hunt").GetComponent<AudioSource>();
 		musicConcentrate = GameObject.Find("music_concentrate").GetComponent<AudioSource>();
-		Show();
+        if (showOnLevelStart)
+            Show();
+        else
+            Hide();
 	}
 	
 	public bool IsHidden()
