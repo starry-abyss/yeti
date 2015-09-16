@@ -5,7 +5,7 @@ public class RendererSortingScript : MonoBehaviour {
 
 	void Sort()
 	{
-		GetComponent<SpriteRenderer>().sortingOrder = Mathf.FloorToInt(-transform.position.y);
+		GetComponent<SpriteRenderer>().sortingOrder = Mathf.FloorToInt(-transform.position.y - 1000);
 	}
 
 	// Use this for initialization
