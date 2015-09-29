@@ -32,7 +32,7 @@ public class LevelScript : MonoBehaviour {
 		}
 	
 		// all victims are killed
-		if (allDead)
+		if (allDead && (Time.timeScale > 0))
 		{
 			this.enabled = false;
 			Debug.Log("all dead");
