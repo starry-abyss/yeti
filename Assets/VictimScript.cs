@@ -61,13 +61,8 @@ public class VictimScript : MonoBehaviour {
 			{
 				if (colliders[i].gameObject != this)
 				{
-					float directionSound = colliders[i].transform.position.x - transform.position.x;
-					float directionWind = wind.speed;
-					
-					// victim has seen us
-					if (/*(Vector2.Distance(transform.position, colliders[i].transform.position) <= 50.0f)
-					    // victim has heard us
-					    ||*/ (((directionSound > 0.0f) && (directionWind > 0.0f)) || ((directionSound < 0.0f) && (directionWind < 0.0f))))
+					// victim has heard us
+					if (wind.windBlowsFromTo(transform.position, colliders[i].transform.position))
 					{
 						VictimScript victim = colliders[i].GetComponent<VictimScript>();
 						victim.ScareEvent(transform.position);

@@ -11,8 +11,34 @@ public class WindScript : MonoBehaviour {
 	public Sprite treeCalm;
 	public Sprite treeWindLeft;
 	public Sprite treeWindRight;
-	
+
 	float startTime;
+	
+	void AdjustTextureOffset()
+	{
+		Material material = GetComponent<MeshRenderer>().material;
+		float width = material.mainTexture.width;
+		float height = material.mainTexture.height;
+		
+		Vector2 offset = material.mainTextureOffset;
+		offset.x = Mathf.RoundToInt(offset.x * width) / width;
+		offset.y = Mathf.RoundToInt(offset.y * height) / height;
+		GetComponent<MeshRenderer>().material.mainTextureOffset = offset;
+	}
+
+	public bool windBlowsFromTo(Vector2 from, Vector2 to)
+	{
+		/*float directionSound = to.x - from.x;
+		float directionWind = this.speed;
+		return ((directionSound > 0.0f) && (directionWind > 0.0f)) || ((directionSound < 0.0f) && (directionWind < 0.0f));*/
+
+		Vector2 directionTarget = to - from;
+		Vector2 directionWind = new Vector2(this.speed, 0.0f);
+		directionTarget.Normalize();
+		//directionWind.Normalize();
+
+		return (((directionTarget.x > 0.0f) && (directionWind.x > 0.0f)) || ((directionTarget.x < 0.0f) && (directionWind.x < 0.0f))) && (Mathf.Abs(directionTarget.x) > Mathf.Abs(directionTarget.y));
+	}
 
 	// Use this for initialization
 	void Start () {
@@ -43,6 +69,8 @@ public class WindScript : MonoBehaviour {
 			//Mathf.Abs(Mathf.Sin((Time.time % (2 * Mathf.PI)) /*/ 100.0f*/)) * 1.0f);
 			((phase / 5.0f) % 1.0f));
 		GetComponent<MeshRenderer>().material.mainTextureOffset = offset;
+		
+		AdjustTextureOffset();
 		
 		for (int i = 0; i < treeRenderers.Length; ++i)
 		{

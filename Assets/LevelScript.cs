@@ -44,12 +44,23 @@ public class LevelScript : MonoBehaviour {
 				{
 					Debug.Log("last level");
 					
-					dialog.transform.Find("Text").GetComponent<Text>().text = "[The End]\n\nThis is the extended post-compo version of Ludum Dare #33 entry that was originally made in 48 hrs by Scorched (@IgorsGames).\nThe theme was: \"You are the monster\"";
+					dialog.transform.Find("Text").GetComponent<Text>().text = 
+						@"BELLIGERANT MADNESS
+A true type font by P.D. Magnus
+www.fontmonkey.com
+
+LICENSE
+
+This font is copyright 2008 by P.D. Magnus. Like all the Fontmonkey fonts, it is free for for all commercial or non-commercial use.
+To be clear: They do not cost anything.";
+					
 					dialog.GetComponent<DialogScript>().Show();
 				}
 				else
 				{
 					this.enabled = true;
+					// go to menu
+					Application.LoadLevel(0);
 				}
 			}
 			else

@@ -6,6 +6,8 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/menu.unity
+  - enabled: 1
     path: Assets/level1.unity
   - enabled: 1
     path: Assets/level2.unity
@@ -18,10 +20,12 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/level6.unity
   - enabled: 1
-    path: Assets/level5.unity
-  - enabled: 1
     path: Assets/level7.unity
+  - enabled: 1
+    path: Assets/level5.unity
   - enabled: 1
     path: Assets/level8.unity
   - enabled: 1
     path: Assets/episode2_ending.unity
+  - enabled: 1
+    path: Assets/credits.unity

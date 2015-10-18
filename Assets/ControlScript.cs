@@ -136,7 +136,7 @@ public class ControlScript : MonoBehaviour {
 			// victim has seen us
 			if ((Vector2.Distance(transform.position, colliders[i].transform.position) <= 50.0f)
 			// victim has heard us
-			    || (wind.enabled && ((Mathf.Abs(velocity.magnitude) > 10.0f) && (((directionSound > 0.0f) && (directionWind > 0.0f)) || ((directionSound < 0.0f) && (directionWind < 0.0f))))))
+				|| (wind.enabled && ((Mathf.Abs(velocity.magnitude) > 10.0f) && wind.windBlowsFromTo(transform.position, colliders[i].transform.position))))
 			{
 				VictimScript victim = colliders[i].GetComponent<VictimScript>();
 				victim.ScareEvent(transform.position);

@@ -306,11 +306,11 @@ Prefab:
     m_Modifications:
     - target: {fileID: 438084, guid: f9d1a7ad468e6d64b8ba46ed4d99c9ae, type: 2}
       propertyPath: m_LocalPosition.x
-      value: -47.2999992
+      value: -47.7000008
       objectReference: {fileID: 0}
     - target: {fileID: 438084, guid: f9d1a7ad468e6d64b8ba46ed4d99c9ae, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 48.4000015
+      value: 54.4000015
       objectReference: {fileID: 0}
     - target: {fileID: 438084, guid: f9d1a7ad468e6d64b8ba46ed4d99c9ae, type: 2}
       propertyPath: m_LocalPosition.z
@@ -352,11 +352,11 @@ Prefab:
     m_Modifications:
     - target: {fileID: 438084, guid: f9d1a7ad468e6d64b8ba46ed4d99c9ae, type: 2}
       propertyPath: m_LocalPosition.x
-      value: -113.300003
+      value: -114
       objectReference: {fileID: 0}
     - target: {fileID: 438084, guid: f9d1a7ad468e6d64b8ba46ed4d99c9ae, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 25.2999992
+      value: 25.7000008
       objectReference: {fileID: 0}
     - target: {fileID: 438084, guid: f9d1a7ad468e6d64b8ba46ed4d99c9ae, type: 2}
       propertyPath: m_LocalPosition.z
@@ -1706,12 +1706,15 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11499448, guid: 111e55083b39dc6448eadfa0f2644b6a, type: 2}
       propertyPath: m_Text
-      value: "  Those creatures are driving me nuts!\n  Maybe I should observe their
-        movement from inside the cave?\n\n[Inside the cave your health drop is suspended]"
+      value: '  Damn the wind, they will hear every sound I make!'
       objectReference: {fileID: 0}
     - target: {fileID: 190240, guid: 111e55083b39dc6448eadfa0f2644b6a, type: 2}
       propertyPath: m_Name
       value: Dialog
+      objectReference: {fileID: 0}
+    - target: {fileID: 11464870, guid: 111e55083b39dc6448eadfa0f2644b6a, type: 2}
+      propertyPath: showOnLevelStart
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 111e55083b39dc6448eadfa0f2644b6a, type: 2}
@@ -2396,11 +2399,11 @@ Prefab:
     m_Modifications:
     - target: {fileID: 438084, guid: f9d1a7ad468e6d64b8ba46ed4d99c9ae, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 24.3999996
+      value: 17.6000004
       objectReference: {fileID: 0}
     - target: {fileID: 438084, guid: f9d1a7ad468e6d64b8ba46ed4d99c9ae, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 49.7999992
+      value: 52.4000015
       objectReference: {fileID: 0}
     - target: {fileID: 438084, guid: f9d1a7ad468e6d64b8ba46ed4d99c9ae, type: 2}
       propertyPath: m_LocalPosition.z
