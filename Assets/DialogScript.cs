@@ -6,6 +6,7 @@ public class DialogScript : MonoBehaviour {
 
 	bool hidden = false;
 	public bool restartLevelAfterClosing = false;
+	public bool gotoMenuAfterClosing = false;
     public bool showOnLevelStart = true;
 
     AudioSource musicHunt;
@@ -71,7 +72,9 @@ public class DialogScript : MonoBehaviour {
 		
 		if (!hidden && (Input.GetAxisRaw("Action") >= 0.1f))
 		{
-			if (restartLevelAfterClosing)
+			if (gotoMenuAfterClosing)
+				Application.LoadLevel(0);
+			else if (restartLevelAfterClosing)
 			{
 				Application.LoadLevel(Application.loadedLevel);
 			}

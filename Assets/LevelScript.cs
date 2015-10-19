@@ -19,6 +19,13 @@ public class LevelScript : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+		if (Input.GetAxisRaw ("Cancel") >= 0.1f)
+		{
+			// go to menu on Escape
+			Application.LoadLevel (0);
+			return;
+		}
+
 		//VictimScript[] victims = (VictimScript[]) Object.FindObjectsOfType(typeof(VictimScript));
 		VictimScript[] victims = Object.FindObjectsOfType<VictimScript>();
 		bool allDead = true;
@@ -55,12 +62,11 @@ This font is copyright 2008 by P.D. Magnus. Like all the Fontmonkey fonts, it is
 To be clear: They do not cost anything.";
 					
 					dialog.GetComponent<DialogScript>().Show();
+					dialog.GetComponent<DialogScript> ().gotoMenuAfterClosing = true;
 				}
 				else
 				{
 					this.enabled = true;
-					// go to menu
-					Application.LoadLevel(0);
 				}
 			}
 			else
