@@ -61,7 +61,7 @@ public class ControlScript : MonoBehaviour {
 		if (victim != null)
 		{
 			victim.Kill();
-			EatAndHeal(ref victim.meal);
+			if (!victim.heavy) EatAndHeal(ref victim.meal);
 		}
 	}
 	

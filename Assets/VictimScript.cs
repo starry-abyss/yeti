@@ -8,6 +8,8 @@ public class VictimScript : MonoBehaviour {
 	bool dead = false;
 	
 	float speed = 60.0f;
+
+	public bool heavy = false;
 	
 	Vector2 currentVelocity = new Vector2(0, 0);
 	
@@ -15,6 +17,9 @@ public class VictimScript : MonoBehaviour {
 	//public LayerMask layerVictim;
 	
 	public Sprite deadSprite;
+	public Sprite aliveSprite;
+	public Sprite deadSprite_Heavy;
+	public Sprite aliveSprite_Heavy;
 	public WindScript wind;
 
     AudioSource audioSource;
@@ -47,7 +52,7 @@ public class VictimScript : MonoBehaviour {
 	{
 		if (dead) return;
 		dead = true;
-		GetComponent<SpriteRenderer>().sprite = deadSprite;
+		GetComponent<SpriteRenderer>().sprite = heavy ? deadSprite_Heavy : deadSprite;
 		currentVelocity = new Vector2(0, 0);
 
         //AudioSource.PlayClipAtPoint(killSound, transform.position);
@@ -79,6 +84,8 @@ public class VictimScript : MonoBehaviour {
         audioSource.loop = false;
         audioSource.spatialBlend = 0.0f;
         audioSource.dopplerLevel = 0.0f;
+
+		GetComponent<SpriteRenderer>().sprite = heavy ? aliveSprite_Heavy : aliveSprite;
     }
 	
 	void FixedUpdate()
