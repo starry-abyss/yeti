@@ -9,6 +9,7 @@ public class LevelScript : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		Cursor.visible = false;
+		Input.ResetInputAxes();
 		
 		VictimScript[] victims = Object.FindObjectsOfType<VictimScript>();
 		for (int i = 0; i < victims.Length; ++i)

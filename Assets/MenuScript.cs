@@ -6,6 +6,7 @@ public class MenuScript : MonoBehaviour {
 	void Awake()
 	{
 		Cursor.visible = true;
+		Input.ResetInputAxes();
 #if UNITY_WEBGL || UNITY_EDITOR
 		GameObject.Find("ExitButton").SetActive(false);
 #endif
