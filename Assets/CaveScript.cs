@@ -28,7 +28,7 @@ public class CaveScript : MonoBehaviour {
 			{
 				meal += victim.meal;
 				victim.meal = 0.0f;
-				//Destroy(other.gameObject);
+				Destroy(other.gameObject);
 			}
 		}
 	}
