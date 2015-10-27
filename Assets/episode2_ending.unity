@@ -1139,8 +1139,15 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11499448, guid: 111e55083b39dc6448eadfa0f2644b6a, type: 2}
       propertyPath: m_Text
-      value: "  I remember someone said: \"Take all in your hands and survive!\"\n
-        \ Was it me?! There's nobody else here! I'm one of a kind..."
+      value: "  Every day, from dusk till dawn, I go hunting. The outside is getting
+        harder and harder. When I start to think I've enough capability to rule the
+        forest, it eventually proves me wrong...\n  \n  I remember someone said: \"Take
+        all in your hands and survive!\"\n  Was it me?! There's nobody else here!
+        I'm one of a kind..."
+      objectReference: {fileID: 0}
+    - target: {fileID: 11499448, guid: 111e55083b39dc6448eadfa0f2644b6a, type: 2}
+      propertyPath: m_FontData.m_Alignment
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 111e55083b39dc6448eadfa0f2644b6a, type: 2}

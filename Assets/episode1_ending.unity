@@ -1145,6 +1145,10 @@ Prefab:
         smile at her in return...\n  Hey it's just stupid, no way I was somewhen one
         of those pathetic creatures!\n  Or was I?.."
       objectReference: {fileID: 0}
+    - target: {fileID: 11499448, guid: 111e55083b39dc6448eadfa0f2644b6a, type: 2}
+      propertyPath: m_FontData.m_Alignment
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 111e55083b39dc6448eadfa0f2644b6a, type: 2}
   m_IsPrefabParent: 0
