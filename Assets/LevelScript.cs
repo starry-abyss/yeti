@@ -6,16 +6,26 @@ public class LevelScript : MonoBehaviour {
 
 	public WindScript wind;
 
+	public AudioClip levelEnd;
+	AudioSource audioSource;
+
 	// Use this for initialization
 	void Start () {
 		Cursor.visible = false;
 		Input.ResetInputAxes();
+		AudioListener.volume = 0.5F;
 		
 		VictimScript[] victims = Object.FindObjectsOfType<VictimScript>();
 		for (int i = 0; i < victims.Length; ++i)
 		{
 			victims[i].wind = wind;
 		}
+
+		audioSource = gameObject.AddComponent<AudioSource>();
+		audioSource.clip = levelEnd;
+		audioSource.loop = false;
+		audioSource.spatialBlend = 0.0f;
+		audioSource.dopplerLevel = 0.0f;
 	}
 	
 	// Update is called once per frame
@@ -43,14 +53,14 @@ public class LevelScript : MonoBehaviour {
 		if (allDead && (Time.timeScale > 0))
 		{
 			this.enabled = false;
-			Debug.Log("all dead");
+			//Debug.Log("all dead");
 			if (Application.loadedLevel == Application.levelCount - 1)
 			{
 				// this is last level
 				GameObject dialog = GameObject.Find("Dialog");
 				if (dialog.GetComponent<DialogScript>().IsHidden() && ((Input.GetAxisRaw("Action") < 0.1f)))
 				{
-					Debug.Log("last level");
+					//Debug.Log("last level");
 					
 					dialog.transform.Find("Text").GetComponent<Text>().text = 
 						@"BELLIGERANT MADNESS
@@ -72,8 +82,10 @@ To be clear: They do not cost anything.";
 			}
 			else
 			{
+				audioSource.Play();
+
 				// go to next level
-				Debug.Log("next level");
+				//Debug.Log("next level");
 				Application.LoadLevel(Application.loadedLevel + 1);
 			}
 		}

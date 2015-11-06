@@ -21,7 +21,7 @@ public class ControlScript : MonoBehaviour {
 	readonly float hpDropShelter = 0.0f; // per second
 	readonly float hpDropOutside = 1.0f; // per second
 	//readonly float mealPerVictim = 10.0f;
-	int maxHp = 100;
+	readonly public int maxHp = 100;
 	
 	CaveScript shelter = null;
 	
@@ -61,7 +61,7 @@ public class ControlScript : MonoBehaviour {
 		if (victim != null)
 		{
 			victim.Kill();
-			if (!victim.heavy) EatAndHeal(ref victim.meal);
+			if (!victim.heavy && !victim.imitation) EatAndHeal(ref victim.meal);
 		}
 	}
 	

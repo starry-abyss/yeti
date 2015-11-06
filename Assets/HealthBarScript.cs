@@ -27,6 +27,7 @@ public class HealthBarScript : MonoBehaviour {
 	
 	public GameObject hudPrefab;
 	GameObject hud;
+	Text overeaten;
 	
 	ControlScript yeti;
 	
@@ -37,10 +38,13 @@ public class HealthBarScript : MonoBehaviour {
 		//Quaternion.identity);
 		GameObject canvas = GameObject.Find("Canvas");
 		hud.transform.SetParent(canvas.transform, true);
+
+		overeaten = hud.GetComponentInChildren<Text> ();
+		overeaten.enabled = false;
 		
 		//value = -1;
 		UpdateValue(0);
-		
+
 		yeti = GetComponent<ControlScript>();
 	}
 	
@@ -50,6 +54,8 @@ public class HealthBarScript : MonoBehaviour {
 		position.y = position.y - Camera.main.orthographicSize + 10;
 		position.z = -8;
 		hud.GetComponent<RectTransform>().position = position;
+
+		overeaten.enabled = yeti.hp > yeti.maxHp * 0.99f;
 		
 		UpdateValue(yeti.hp);
 	}

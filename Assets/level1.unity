@@ -1502,6 +1502,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   wind: {fileID: 1279079365}
+  levelEnd: {fileID: 8300000, guid: 9c9f1bbf7e0c8d24092d564a4cdc4abb, type: 3}
 --- !u!1 &1609906382 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 115236, guid: 6ef3c27e575e9b04993c0345a933d678, type: 2}
@@ -1948,6 +1949,10 @@ Prefab:
       propertyPath: wind
       value: 
       objectReference: {fileID: 1279079365}
+    - target: {fileID: 11448896, guid: 6ef3c27e575e9b04993c0345a933d678, type: 2}
+      propertyPath: hp
+      value: 80
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 6ef3c27e575e9b04993c0345a933d678, type: 2}
   m_IsPrefabParent: 0

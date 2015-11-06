@@ -39,6 +39,6 @@ public class MenuScript : MonoBehaviour {
 
 	public void Episode4()
 	{
-		;
+		Application.LoadLevel("level13");
 	}
 }

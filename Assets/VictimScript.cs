@@ -4,6 +4,7 @@ using System.Collections;
 
 public class VictimScript : MonoBehaviour {
 
+	public bool imitation = false;
 	public float meal = 1.0f;
 	bool dead = false;
 	
@@ -22,6 +23,8 @@ public class VictimScript : MonoBehaviour {
 	public Sprite aliveSprite_Heavy;
 	public WindScript wind;
 
+	float timerMakeNoise = 0.0f;
+
     AudioSource audioSource;
 
     public bool IsDead()
@@ -31,7 +34,7 @@ public class VictimScript : MonoBehaviour {
 	
 	public void ScareEvent(Vector3 position)
 	{
-		if (dead) return;
+		if (dead || imitation) return;
 		PatrolScript patrolScript = GetComponent<PatrolScript>();
 		if (patrolScript != null)
 		{
@@ -50,6 +53,7 @@ public class VictimScript : MonoBehaviour {
 	
 	public void Kill()
 	{
+		
 		if (dead) return;
 		dead = true;
 		GetComponent<SpriteRenderer>().sprite = heavy ? deadSprite_Heavy : deadSprite;
@@ -57,24 +61,36 @@ public class VictimScript : MonoBehaviour {
 
         //AudioSource.PlayClipAtPoint(killSound, transform.position);
         //audioSource.PlayOneShot(killSound);
-        audioSource.Play();
-
-        if (wind.enabled)
+        
+		if (imitation)
 		{
-			Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, 100, 1 << gameObject.layer);
-			for (int i = 0; i != colliders.Length; ++i)
+			timerMakeNoise = Time.time;
+			meal = 0.0f;
+		}
+
+		if (wind.enabled || imitation)
+		{
+			MakeNoise ();
+		}
+	}
+
+	void MakeNoise()
+	{
+		Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, 100, 1 << gameObject.layer);
+		for (int i = 0; i != colliders.Length; ++i)
+		{
+			if (colliders[i].gameObject != this)
 			{
-				if (colliders[i].gameObject != this)
+				// victim has heard us
+				if (wind.windBlowsFromTo(transform.position, colliders[i].transform.position))
 				{
-					// victim has heard us
-					if (wind.windBlowsFromTo(transform.position, colliders[i].transform.position))
-					{
-						VictimScript victim = colliders[i].GetComponent<VictimScript>();
-						victim.ScareEvent(transform.position);
-					}
+					VictimScript victim = colliders[i].GetComponent<VictimScript>();
+					victim.ScareEvent(transform.position);
 				}
 			}
 		}
+
+		audioSource.Play();
 	}
 
 	// Use this for initialization
@@ -116,18 +132,30 @@ public class VictimScript : MonoBehaviour {
 		}
 		else
 		{
-			Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, 50, 1 << gameObject.layer);
-			for (int i = 0; i != colliders.Length; ++i)
+			if (imitation)
 			{
-				if ((colliders[i].gameObject != this) && GetComponent<Collider2D>().enabled)
+				if (Time.time - timerMakeNoise >= 2.0f)
 				{
-					VictimScript victim = colliders[i].GetComponent<VictimScript>();
-					victim.ScareEvent(transform.position);
+					timerMakeNoise = Time.time;
+
+					MakeNoise ();
+					audioSource.Play ();
 				}
 			}
+
+			Collider2D[] colliders = Physics2D.OverlapCircleAll (transform.position, 50, 1 << gameObject.layer);
+			for (int i = 0; i != colliders.Length; ++i)
+			{
+				if ((colliders [i].gameObject != this) && GetComponent<Collider2D> ().enabled)
+				{
+					VictimScript victim = colliders [i].GetComponent<VictimScript> ();
+					victim.ScareEvent (transform.position);
+				}
+			}
+		
 		}
 
-        if (meal <= 0.0f)
+		if ((meal <= 0.0f) && !imitation)
         {
             GetComponent<SpriteRenderer>().enabled = false;
             GetComponent<Collider2D>().enabled = false;

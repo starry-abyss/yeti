@@ -38,4 +38,14 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/episode3_ending.unity
   - enabled: 1
+    path: Assets/level13.unity
+  - enabled: 1
+    path: Assets/level14.unity
+  - enabled: 1
+    path: Assets/level15.unity
+  - enabled: 1
+    path: Assets/level16.unity
+  - enabled: 1
+    path: Assets/episode4_ending.unity
+  - enabled: 1
     path: Assets/credits.unity
