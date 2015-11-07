@@ -72,6 +72,8 @@ public class VictimScript : MonoBehaviour {
 		{
 			MakeNoise ();
 		}
+			
+		audioSource.Play();
 	}
 
 	void MakeNoise()
@@ -89,8 +91,6 @@ public class VictimScript : MonoBehaviour {
 				}
 			}
 		}
-
-		audioSource.Play();
 	}
 
 	// Use this for initialization
