@@ -3176,10 +3176,9 @@ Transform:
   - {fileID: 601061064}
   - {fileID: 1361340706}
   - {fileID: 1638895823}
-  - {fileID: 191827150}
   - {fileID: 719043298}
   - {fileID: 340930378}
-  - {fileID: 473390132}
+  - {fileID: 191827150}
   - {fileID: 545800752}
   - {fileID: 37355881}
   - {fileID: 1850772793}
@@ -3198,14 +3197,15 @@ Transform:
   - {fileID: 2018644304}
   - {fileID: 456480756}
   - {fileID: 1876288342}
-  - {fileID: 1833093210}
+  - {fileID: 473390132}
   - {fileID: 853470853}
-  - {fileID: 1227221127}
   - {fileID: 518355864}
   - {fileID: 1996337267}
+  - {fileID: 1227221127}
+  - {fileID: 1833093210}
+  - {fileID: 377054128}
   - {fileID: 941395572}
   - {fileID: 213126710}
-  - {fileID: 377054128}
   - {fileID: 476163076}
   - {fileID: 371102086}
   - {fileID: 1501907956}
@@ -3233,6 +3233,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   wind: {fileID: 1279079365}
+  levelEnd: {fileID: 8300000, guid: 9c9f1bbf7e0c8d24092d564a4cdc4abb, type: 3}
+  fanfareAfterLevel: 1
 --- !u!1001 &1539174750
 Prefab:
   m_ObjectHideFlags: 0

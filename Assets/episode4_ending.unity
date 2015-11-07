@@ -1054,6 +1054,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   wind: {fileID: 1279079365}
+  levelEnd: {fileID: 8300000, guid: 9c9f1bbf7e0c8d24092d564a4cdc4abb, type: 3}
+  fanfareAfterLevel: 0
 --- !u!1001 &1592916318
 Prefab:
   m_ObjectHideFlags: 0

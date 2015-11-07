@@ -7,6 +7,7 @@ public class LevelScript : MonoBehaviour {
 	public WindScript wind;
 
 	public AudioClip levelEnd;
+	public bool fanfareAfterLevel = true;
 	AudioSource audioSource;
 
 	// Use this for initialization
@@ -82,12 +83,41 @@ To be clear: They do not cost anything.";
 			}
 			else
 			{
-				audioSource.Play();
-
 				// go to next level
-				//Debug.Log("next level");
-				Application.LoadLevel(Application.loadedLevel + 1);
+				if (fanfareAfterLevel)
+				{
+					MonoBehaviour[] allScripts = GameObject.FindObjectsOfType<MonoBehaviour> ();
+					for (int i = 0; i < allScripts.Length; ++i) {
+						allScripts [i].enabled = false;
+					}
+
+					DistanceJoint2D[] allJoints = GameObject.FindObjectsOfType<DistanceJoint2D> ();
+					for (int i = 0; i < allJoints.Length; ++i) {
+						Destroy(allJoints [i]);
+					}
+
+					Rigidbody2D[] allRigidbodies = GameObject.FindObjectsOfType<Rigidbody2D> ();
+					for (int i = 0; i < allRigidbodies.Length; ++i) {
+						Destroy(allRigidbodies [i]);
+					}
+
+					AudioSource[] allAudio = GameObject.FindObjectsOfType<AudioSource> ();
+					for (int i = 0; i < allAudio.Length; ++i) {
+						allAudio [i].Stop ();
+					}
+
+					audioSource.Play ();
+					StartCoroutine (delayNextLevel ());
+				}
+				else
+					Application.LoadLevel(Application.loadedLevel + 1);
 			}
 		}
+	}
+		
+	IEnumerator delayNextLevel()
+	{
+		yield return new WaitForSeconds(2.0f);
+		Application.LoadLevel(Application.loadedLevel + 1);
 	}
 }

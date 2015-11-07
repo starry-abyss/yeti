@@ -1963,20 +1963,20 @@ Transform:
   - {fileID: 1843366344}
   - {fileID: 537643680}
   - {fileID: 296419450}
-  - {fileID: 817419378}
   - {fileID: 706672511}
   - {fileID: 42123385}
+  - {fileID: 817419378}
   - {fileID: 376771503}
   - {fileID: 236340350}
   - {fileID: 1400910545}
   - {fileID: 707601343}
   - {fileID: 893079654}
   - {fileID: 601061064}
-  - {fileID: 191827150}
   - {fileID: 1361340706}
+  - {fileID: 191827150}
   - {fileID: 719043298}
-  - {fileID: 340930378}
   - {fileID: 1638895823}
+  - {fileID: 340930378}
   - {fileID: 1697111771}
   m_Father: {fileID: 0}
   m_RootOrder: 4
@@ -1992,6 +1992,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   wind: {fileID: 1279079365}
+  levelEnd: {fileID: 8300000, guid: 9c9f1bbf7e0c8d24092d564a4cdc4abb, type: 3}
+  fanfareAfterLevel: 1
 --- !u!1 &1609906382 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 115236, guid: 6ef3c27e575e9b04993c0345a933d678, type: 2}
