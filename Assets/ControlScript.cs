@@ -89,13 +89,18 @@ public class ControlScript : MonoBehaviour {
 		float inputV = Input.GetAxis("Vertical");
 		float inputH = Input.GetAxis("Horizontal");
 		float inputDeadZone = 0.1f;
+
+		NoiseSourceScript.NoiseType noiseType = NoiseSourceScript.NoiseType.None;
+
 		if (Mathf.Abs(inputV) >= inputDeadZone)
 		{
 			direction = (inputV > 0) ? 1 : 3;
+			noiseType = NoiseSourceScript.NoiseType.Uniform;
 		}
 		else if (Mathf.Abs(inputH) >= inputDeadZone)
 		{
 			direction = (inputH > 0) ? 0 : 2;
+			noiseType = NoiseSourceScript.NoiseType.Uniform;
 		}
 		
 		//if (Mathf.Abs(inputH) < inputDeadZone) inputH = 0.0f;
@@ -108,13 +113,20 @@ public class ControlScript : MonoBehaviour {
 		if (wind.enabled)
 		{
 			if ((((wind.speed > 0) && (velocity.x > 0))
-				|| ((wind.speed < 0) && (velocity.x < 0)))
-				&& (Mathf.Abs(wind.speed) >= Mathf.Abs(velocity.x)))
+			    || ((wind.speed < 0) && (velocity.x < 0)))
+			    && (Mathf.Abs (wind.speed) >= Mathf.Abs (velocity.x)))
 					velocity.x = 0.0f;
-			else if (Mathf.Abs(velocity.x) > 0)
+			else if (Mathf.Abs (velocity.x) > 0)
+			{
 				velocity.x += wind.speed;
+			}
+
+			if (Mathf.Abs (wind.speed) > 0.01f)
+				noiseType = (wind.speed > 0) ? NoiseSourceScript.NoiseType.WindRight : NoiseSourceScript.NoiseType.WindLeft;
 		}
 		currentVelocity = velocity;
+
+		GetComponent<NoiseSourceScript> ().SetNoiseType (noiseType);
 	
 		// grabbing victims
 		bool grab = Input.GetAxis("Action") >= inputDeadZone;
