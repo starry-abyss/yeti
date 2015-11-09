@@ -121,7 +121,7 @@ public class ControlScript : MonoBehaviour {
 				velocity.x += wind.speed;
 			}
 
-			if (Mathf.Abs (wind.speed) > 0.01f)
+			if ((Mathf.Abs (wind.speed) > 0.01f) && (Mathf.Abs (velocity.magnitude) > 0))
 				noiseType = (wind.speed > 0) ? NoiseSourceScript.NoiseType.WindRight : NoiseSourceScript.NoiseType.WindLeft;
 		}
 		currentVelocity = velocity;
