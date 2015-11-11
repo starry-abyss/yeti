@@ -27,6 +27,8 @@ public class VictimScript : MonoBehaviour {
 
     AudioSource audioSource;
 
+	float noiseTimer = -10.0f;
+
     public bool IsDead()
 	{
 		return dead;
@@ -74,6 +76,7 @@ public class VictimScript : MonoBehaviour {
 		}
 			
 		audioSource.Play();
+		noiseTimer = Time.time;
 	}
 
 	void MakeNoise()
@@ -140,9 +143,13 @@ public class VictimScript : MonoBehaviour {
 
 					MakeNoise ();
 					audioSource.Play ();
+					noiseTimer = Time.time;
 				}
 			}
 
+			// if some soldier sees a dead soldier, he's scared;
+			// also this code works for scaring by scream of dying soldier
+			// in case without wind since radii are the same
 			Collider2D[] colliders = Physics2D.OverlapCircleAll (transform.position, 50, 1 << gameObject.layer);
 			for (int i = 0; i != colliders.Length; ++i)
 			{
@@ -153,6 +160,19 @@ public class VictimScript : MonoBehaviour {
 				}
 			}
 		
+		}
+
+		{
+			NoiseSourceScript.NoiseType noiseType = NoiseSourceScript.NoiseType.None;
+			if (Time.time - noiseTimer < 1.0f)
+			{
+				if (Mathf.Abs (wind.speed) > 0.01f)
+					noiseType = (wind.speed > 0) ? NoiseSourceScript.NoiseType.WindRight : NoiseSourceScript.NoiseType.WindLeft;
+				else
+					noiseType = NoiseSourceScript.NoiseType.Uniform;
+			}
+
+			GetComponent<NoiseSourceScript> ().SetNoiseType (noiseType);
 		}
 
 		if ((meal <= 0.0f) && !imitation)

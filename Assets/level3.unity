@@ -941,8 +941,9 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11499448, guid: 111e55083b39dc6448eadfa0f2644b6a, type: 2}
       propertyPath: m_Text
-      value: "  I can grab the creature [Hold Action button] when I'm near it.\n  I
-        can hide corpses at home."
+      value: "  When the creatures are near each other, it can be a problem.\n  I
+        have to make sure they are remote enough to not hear screams.\n\n  [Pay attention
+        to yellow sound source indicators]"
       objectReference: {fileID: 0}
     - target: {fileID: 190240, guid: 111e55083b39dc6448eadfa0f2644b6a, type: 2}
       propertyPath: m_Name

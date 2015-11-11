@@ -95,12 +95,12 @@ public class ControlScript : MonoBehaviour {
 		if (Mathf.Abs(inputV) >= inputDeadZone)
 		{
 			direction = (inputV > 0) ? 1 : 3;
-			noiseType = NoiseSourceScript.NoiseType.Uniform;
+			//noiseType = NoiseSourceScript.NoiseType.Uniform;
 		}
 		else if (Mathf.Abs(inputH) >= inputDeadZone)
 		{
 			direction = (inputH > 0) ? 0 : 2;
-			noiseType = NoiseSourceScript.NoiseType.Uniform;
+			//noiseType = NoiseSourceScript.NoiseType.Uniform;
 		}
 		
 		//if (Mathf.Abs(inputH) < inputDeadZone) inputH = 0.0f;
